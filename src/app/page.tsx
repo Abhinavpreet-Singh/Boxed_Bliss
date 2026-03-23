@@ -113,17 +113,6 @@ export default async function Home() {
       <main className="site-shell pb-16 pt-7 sm:pt-8">
         <section className="grid items-center gap-9 lg:grid-cols-[1fr_0.96fr]">
           <div className="reveal max-w-[560px]">
-            <div className="mb-5 inline-flex items-center gap-3 rounded-full border border-rose-line/80 bg-white/80 px-3 py-2">
-              <Image
-                src="/brand/logo-bg.png"
-                alt="The Boxed Bliss"
-                width={34}
-                height={34}
-                className="h-8 w-8 rounded-full object-cover"
-                priority
-              />
-              <p className="font-script text-2xl leading-none text-rose-ink">The Boxed Bliss</p>
-            </div>
             <p className="kicker">Handmade with love and detail</p>
             <h1 className="mt-5 max-w-[18ch] font-display text-5xl leading-[0.96] text-rose-ink sm:text-7xl">
               Handcrafted Joy,
