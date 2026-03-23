@@ -32,7 +32,7 @@ export default async function AboutPage() {
   return (
     <div className="overflow-x-hidden bg-rose-paper">
       <Navbar />
-      <main className="site-shell pb-16 pt-7 sm:pt-10">
+      <main className="site-shell pb-16 pt-10 sm:pt-10">
         <section className="mt-6">
           <div className="soft-panel overflow-hidden p-4 sm:p-6">
             <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] items-center">

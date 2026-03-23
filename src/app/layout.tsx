@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Inter, Dancing_Script } from "next/font/google";
 import "./globals.css";
+import { RouteLoadingProvider } from "@/components/routeLoading/RouteLoadingProvider";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -37,7 +38,9 @@ export default function RootLayout({
       lang="en"
       className={`${playfair.variable} ${inter.variable} ${dancing.variable} h-full`}
     >
-      <body className="min-h-full antialiased">{children}</body>
+      <body className="min-h-full antialiased">
+        <RouteLoadingProvider>{children}</RouteLoadingProvider>
+      </body>
     </html>
   );
 }

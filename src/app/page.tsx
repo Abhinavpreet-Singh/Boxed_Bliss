@@ -1,5 +1,6 @@
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
+import LoadingLink from "@/components/routeLoading/LoadingLink";
 import Image from "next/image";
 import { readdir } from "node:fs/promises";
 import { join } from "node:path";
@@ -110,7 +111,7 @@ export default async function Home() {
     <div className="overflow-x-hidden bg-rose-paper">
       <Navbar />
 
-      <main className="site-shell pb-16 pt-7 sm:pt-8">
+      <main className="site-shell pb-16 pt-10 sm:pt-10">
         <section className="grid items-center gap-9 lg:grid-cols-[1fr_0.96fr]">
           <div className="reveal max-w-[560px]">
             <p className="kicker">Handmade with love and detail</p>
@@ -125,12 +126,12 @@ export default async function Home() {
               moments in warmth, beauty, and celebration.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <button type="button" className="btn-primary">
+              <LoadingLink href="/collections" className="btn-primary">
                 Explore Collections
-              </button>
-              <button type="button" className="btn-ghost">
+              </LoadingLink>
+              <LoadingLink href="/contact" className="btn-ghost">
                 Call now for custom orders
-              </button>
+              </LoadingLink>
             </div>
             <ul className="mt-8 grid gap-2 text-xs uppercase tracking-[0.15em] text-rose-muted sm:grid-cols-3">
               {trustItems.map((item) => (

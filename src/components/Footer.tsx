@@ -1,14 +1,20 @@
-import Link from "next/link";
 import Image from "next/image";
+import LoadingLink from "@/components/routeLoading/LoadingLink";
 
 const footerGroups = [
   {
     title: "Discover",
-    links: ["Join our bliss circle", "Customer service"],
+    links: [
+      { label: "Join our bliss circle", href: "/join" },
+      { label: "Customer service", href: "/customer-service" },
+    ],
   },
   {
     title: "Inquiry",
-    links: ["Privacy policy", "Shipping & returns"],
+    links: [
+      { label: "Privacy policy", href: "/privacy-policy" },
+      { label: "Shipping & returns", href: "/shipping-returns" },
+    ],
   },
 ];
 
@@ -39,10 +45,10 @@ export default function Footer() {
             <h3 className="mb-3 text-[0.62rem] font-medium text-rose-ink">{group.title}</h3>
             <ul className="space-y-2 text-[0.6rem]">
               {group.links.map((link) => (
-                <li key={link}>
-                  <Link href="#" className="transition hover:text-rose-ink">
-                    {link}
-                  </Link>
+                <li key={link.href}>
+                  <LoadingLink href={link.href} className="transition hover:text-rose-ink">
+                    {link.label}
+                  </LoadingLink>
                 </li>
               ))}
             </ul>

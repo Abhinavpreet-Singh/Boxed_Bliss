@@ -101,7 +101,7 @@ export default async function CollectionsPage() {
   return (
     <div className="overflow-x-hidden bg-rose-paper">
       <Navbar />
-      <main className="site-shell pb-16 pt-7 sm:pt-10">
+      <main className="site-shell pb-16 pt-10 sm:pt-10">
         <SectionTitle
           title="Collections"
           subtitle="Curated categories with an elevated handcrafted feel."

@@ -79,7 +79,7 @@ export default async function ShopPage() {
   return (
     <div className="overflow-x-hidden bg-rose-paper">
       <Navbar />
-      <main className="site-shell pb-16 pt-7 sm:pt-10">
+      <main className="site-shell pb-16 pt-10 sm:pt-10">
         <PrimaryHero
           title="Handcrafted Shop"
           subtitle="A curated selection of gifts, hampers, and charming creations—crafted for warmth, beauty, and the moment you give."
