@@ -1,6 +1,7 @@
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import LoadingLink from "@/components/routeLoading/LoadingLink";
+import HomeMovingCarousel from "@/components/HomeMovingCarousel";
 import Image from "next/image";
 
 const pipeCleanerCards = [
@@ -56,9 +57,9 @@ function SectionTitle({
           <h2 className="font-display text-4xl leading-tight text-rose-ink sm:text-5xl">{title}</h2>
           {subtitle ? <p className="mt-2 text-sm text-rose-muted">{subtitle}</p> : null}
         </div>
-        <button type="button" className="btn-ghost hidden sm:inline-flex">
+        <LoadingLink href="/collections" className="btn-ghost hidden sm:inline-flex">
           View all
-        </button>
+        </LoadingLink>
       </div>
     </div>
   );
@@ -67,6 +68,32 @@ function SectionTitle({
 export default async function Home() {
   const heroImage = "/brand/herosection.png";
   const productImage = "/brand/logo-bg.png";
+  const movingCarouselItems = [
+    {
+      title: "Best Seller Gift Boxes",
+      subtitle: "Elegant rose-toned picks inspired by premium storefronts.",
+      href: "/shop",
+      imageSrc: productImage,
+    },
+    {
+      title: "Occasion-Ready Hampers",
+      subtitle: "Designed to make birthdays, weddings, and milestones look premium.",
+      href: "/collections",
+      imageSrc: productImage,
+    },
+    {
+      title: "Signature Keepsakes",
+      subtitle: "Personalized selections crafted for memorable gifting moments.",
+      href: "/contact",
+      imageSrc: productImage,
+    },
+    {
+      title: "Quick Gift Picks",
+      subtitle: "Fast browse cards in a refined handcrafted aesthetic.",
+      href: "/shop",
+      imageSrc: productImage,
+    },
+  ];
 
   return (
     <div className="overflow-x-hidden bg-rose-paper">
@@ -165,6 +192,49 @@ export default async function Home() {
         </section>
 
         <section className="mt-16 sm:mt-20">
+          <SectionTitle
+            title="Shop By Purpose"
+            subtitle="Fast modules for quick intent-driven browsing."
+          />
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              { title: "Birthday", href: "/collections" },
+              { title: "Wedding", href: "/collections" },
+              { title: "Corporate", href: "/collections" },
+              { title: "Custom", href: "/contact" },
+            ].map((item) => (
+              <article key={item.title} className="soft-panel overflow-hidden p-0">
+                <div className="relative min-h-[190px]">
+                  <Image
+                    src={productImage}
+                    alt={item.title}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 1024px) 50vw, 25vw"
+                  />
+                </div>
+                <div className="p-4">
+                  <h3 className="font-display text-2xl text-rose-ink">{item.title}</h3>
+                  <LoadingLink href={item.href} className="btn-ghost mt-3">
+                    View picks
+                  </LoadingLink>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="mt-16 sm:mt-20">
+          <div className="mb-7 text-center">
+            <h2 className="font-display text-5xl leading-tight text-rose-ink">More to Explore</h2>
+            <p className="mt-2 text-sm text-rose-muted">
+              Quick highlights curated for effortless browsing.
+            </p>
+          </div>
+          <HomeMovingCarousel items={movingCarouselItems} />
+        </section>
+
+        <section className="mt-16 sm:mt-20">
           <div className="soft-panel grid gap-6 p-6 sm:grid-cols-[1.07fr_0.93fr] sm:p-9">
             <div>
               <p className="kicker">Bespoke</p>
@@ -175,9 +245,9 @@ export default async function Home() {
                 Transform your treasured memories into a custom case. We blend your visuals with
                 elegant textures and hand-finished details for a one-of-one keepsake.
               </p>
-              <button type="button" className="btn-ghost mt-6">
+              <LoadingLink href="/contact" className="btn-ghost mt-6">
                 Design yours now
-              </button>
+              </LoadingLink>
             </div>
             <div className="photo-panel relative min-h-[280px]">
               <Image
@@ -211,7 +281,7 @@ export default async function Home() {
                 />
               </div>
               <div className="p-5">
-                <h3 className="font-display text-3xl text-white drop-shadow-[0_2px_8px_rgba(45,39,40,0.35)] sm:text-[2.1rem]">
+                <h3 className="inline-block rounded-lg bg-white/72 px-3 py-1.5 font-display text-3xl text-rose-ink sm:text-[2.1rem]">
                   Everlasting Real Blooms
                 </h3>
               </div>

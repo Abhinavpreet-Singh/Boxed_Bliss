@@ -1,16 +1,10 @@
 import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { getBrandImagesExcluding } from "@/lib/brandImages";
+import LoadingLink from "@/components/routeLoading/LoadingLink";
 
 export default async function JoinPage() {
-  const brandPanels = await getBrandImagesExcluding([
-    "logo-bg.png",
-    "reference-layout.png",
-  ]);
-
-  const heroImage = "/brand/herosection.png";
-  const panel = brandPanels[0] ?? heroImage;
+  const panel = "/brand/logo-bg.png";
 
   return (
     <div className="overflow-x-hidden bg-rose-paper">
@@ -41,12 +35,12 @@ export default async function JoinPage() {
                 </div>
 
                 <div className="mt-6 flex flex-wrap gap-3">
-                  <button type="button" className="btn-primary">
+                  <LoadingLink href="/contact" className="btn-primary">
                     Subscribe
-                  </button>
-                  <button type="button" className="btn-ghost">
+                  </LoadingLink>
+                  <LoadingLink href="/collections" className="btn-ghost">
                     Preview benefits
-                  </button>
+                  </LoadingLink>
                 </div>
               </div>
 

@@ -1,17 +1,10 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SectionTitle from "@/components/SectionTitle";
-import { getBrandImagesExcluding } from "@/lib/brandImages";
 import Image from "next/image";
 
 export default async function ContactPage() {
-  const brandPanels = await getBrandImagesExcluding([
-    "logo-bg.png",
-    "reference-layout.png",
-    "herosection.png",
-  ]);
-
-  const contactImage = brandPanels[1] ?? "/brand/herosection.png";
+  const contactImage = "/brand/logo-bg.png";
 
   return (
     <div className="overflow-x-hidden bg-rose-paper">
@@ -103,7 +96,7 @@ export default async function ContactPage() {
                 </label>
 
                 <div className="mt-6 flex flex-wrap gap-3">
-                  <button type="button" className="btn-primary">
+                  <button type="submit" className="btn-primary">
                     Submit request
                   </button>
                   <button type="reset" className="btn-ghost">

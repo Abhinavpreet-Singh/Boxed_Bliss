@@ -1,15 +1,9 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { getBrandImagesExcluding } from "@/lib/brandImages";
 import Image from "next/image";
 
 export default async function CustomerServicePage() {
-  const brandPanels = await getBrandImagesExcluding([
-    "logo-bg.png",
-    "reference-layout.png",
-  ]);
-
-  const heroImage = brandPanels[1] ?? "/brand/herosection.png";
+  const heroImage = "/brand/logo-bg.png";
 
   return (
     <div className="overflow-x-hidden bg-rose-paper">

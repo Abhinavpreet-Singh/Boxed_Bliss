@@ -173,12 +173,26 @@ a {
   }
 }
 
+@keyframes marquee-right {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}
+
 .reveal {
   animation: none;
 }
 
 .float-slow {
   animation: none;
+}
+
+.marquee-right-track {
+  animation: marquee-right 24s linear infinite;
+  will-change: transform;
 }
 
 .art-panel {

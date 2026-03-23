@@ -2,24 +2,17 @@ import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SectionTitle from "@/components/SectionTitle";
-import { getBrandImagesExcluding } from "@/lib/brandImages";
+import LoadingLink from "@/components/routeLoading/LoadingLink";
 
 function BigTile({
   title,
   subtitle,
   imageSrc,
-  accent,
 }: {
   title: string;
   subtitle: string;
   imageSrc?: string;
-  accent: "rose" | "mint";
 }) {
-  const bg =
-    accent === "mint"
-      ? "linear-gradient(160deg, rgba(16, 78, 70, 0.86) 0%, rgba(77, 137, 128, 0.88) 100%)"
-      : "linear-gradient(160deg, rgba(219, 122, 155, 0.78) 0%, rgba(160, 95, 126, 0.84) 100%)";
-
   return (
     <article className="soft-panel overflow-hidden p-0">
       <div className="relative min-h-[280px] sm:min-h-[310px]">
@@ -33,37 +26,27 @@ function BigTile({
               sizes="(max-width: 768px) 100vw, 45vw"
               priority={false}
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-rose-paper/10 via-transparent to-rose-paper/35" />
+            <div className="absolute inset-0 bg-gradient-to-b from-rose-paper/5 via-transparent to-rose-paper/30" />
           </>
         ) : (
-          <div className="absolute inset-0" style={{ background: bg }} />
+          <div className="absolute inset-0 bg-gradient-to-br from-rose-soft to-rose-paper" />
         )}
+      </div>
 
-        <div className="absolute inset-x-0 bottom-0 p-5 sm:p-7">
-          <p className="kicker">Collection</p>
-          <h3 className="mt-2 font-display text-[2rem] leading-tight text-white drop-shadow-[0_2px_16px_rgba(20,15,18,0.35)]">
-            {title}
-          </h3>
-          <p className="mt-3 max-w-[42ch] text-sm leading-6 text-white/90">
-            {subtitle}
-          </p>
+      <div className="border-t border-rose-line/70 bg-white/70 p-5 sm:p-6">
+        <p className="kicker">Collection</p>
+        <h3 className="mt-2 font-display text-[2rem] leading-tight text-rose-ink">
+          {title}
+        </h3>
+        <p className="mt-3 max-w-[42ch] text-sm leading-6 text-rose-muted">{subtitle}</p>
 
-          <div className="mt-5 flex flex-wrap gap-3">
-            <button type="button" className="btn-primary">
-              View
-            </button>
-            <button
-              type="button"
-              className="btn-ghost"
-              style={{
-                borderColor: "rgba(255,255,255,0.42)",
-                color: "#ffffff",
-                background: "rgba(255,255,255,0.14)",
-              }}
-            >
-              Explore
-            </button>
-          </div>
+        <div className="mt-5 flex flex-wrap gap-3">
+          <LoadingLink href="/shop" className="btn-primary">
+            View
+          </LoadingLink>
+          <LoadingLink href="/collections" className="btn-ghost">
+            Explore
+          </LoadingLink>
         </div>
       </div>
     </article>
@@ -71,30 +54,23 @@ function BigTile({
 }
 
 export default async function CollectionsPage() {
-  const panelImages = await getBrandImagesExcluding([
-    "logo-bg.png",
-    "reference-layout.png",
-    "herosection.png",
-  ]);
+  const productImage = "/brand/logo-bg.png";
 
   const heroTiles = [
     {
       title: "Pipe Cleaner Creations",
       subtitle: "Playful, handcrafted pieces made for smile-worthy gifting.",
-      imageSrc: panelImages[0],
-      accent: "rose" as const,
+      imageSrc: productImage,
     },
     {
       title: "Occasion Hampers",
       subtitle: "Thoughtful bundles for celebrations, weddings, and milestones.",
-      imageSrc: panelImages[3],
-      accent: "mint" as const,
+      imageSrc: productImage,
     },
     {
       title: "Your Signature Phone Case",
       subtitle: "Turn your memories into a keepsake you’ll reach for every day.",
-      imageSrc: panelImages[6],
-      accent: "rose" as const,
+      imageSrc: productImage,
     },
   ];
 
@@ -115,7 +91,6 @@ export default async function CollectionsPage() {
               title={tile.title}
               subtitle={tile.subtitle}
               imageSrc={tile.imageSrc}
-              accent={tile.accent}
             />
           ))}
         </div>
@@ -143,9 +118,9 @@ export default async function CollectionsPage() {
                   <p className="mt-3 text-sm leading-6 text-rose-muted">
                     Share a vibe—get a curated combination of pieces.
                   </p>
-                  <button type="button" className="btn-primary mt-5">
+                  <LoadingLink href="/contact" className="btn-primary mt-5">
                     Start a request
-                  </button>
+                  </LoadingLink>
                 </div>
               </div>
             </div>

@@ -2,17 +2,11 @@ import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SectionTitle from "@/components/SectionTitle";
-import { getBrandImagesExcluding } from "@/lib/brandImages";
+import LoadingLink from "@/components/routeLoading/LoadingLink";
 
 export default async function AboutPage() {
-  const brandPanels = await getBrandImagesExcluding([
-    "logo-bg.png",
-    "reference-layout.png",
-    "herosection.png",
-  ]);
-
-  const storyImage = brandPanels[0] ?? "/brand/herosection.png";
-  const sideImage = brandPanels[3] ?? "/brand/herosection.png";
+  const storyImage = "/brand/logo-bg.png";
+  const sideImage = "/brand/logo-bg.png";
 
   const values = [
     {
@@ -57,12 +51,12 @@ export default async function AboutPage() {
                 </div>
 
                 <div className="mt-7 flex flex-wrap gap-3">
-                  <button type="button" className="btn-primary">
+                  <LoadingLink href="/collections" className="btn-primary">
                     Explore collections
-                  </button>
-                  <button type="button" className="btn-ghost">
+                  </LoadingLink>
+                  <LoadingLink href="/contact" className="btn-ghost">
                     Custom requests
-                  </button>
+                  </LoadingLink>
                 </div>
               </div>
 

@@ -1,3 +1,5 @@
+import LoadingLink from "@/components/routeLoading/LoadingLink";
+
 export default function SectionTitle({
   title,
   subtitle,
@@ -17,9 +19,9 @@ export default function SectionTitle({
           </h2>
           {subtitle ? <p className="mt-2 text-sm text-rose-muted">{subtitle}</p> : null}
         </div>
-        <button type="button" className="btn-ghost hidden sm:inline-flex">
+        <LoadingLink href="/collections" className="btn-ghost hidden sm:inline-flex">
           View all
-        </button>
+        </LoadingLink>
       </div>
     </div>
   );

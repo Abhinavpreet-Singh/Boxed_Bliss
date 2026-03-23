@@ -2,7 +2,7 @@ import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SectionTitle from "@/components/SectionTitle";
-import { getBrandImagesExcluding } from "@/lib/brandImages";
+import LoadingLink from "@/components/routeLoading/LoadingLink";
 
 function PrimaryHero({
   title,
@@ -24,12 +24,12 @@ function PrimaryHero({
             </h1>
             <p className="mt-4 text-sm leading-7 text-rose-muted">{subtitle}</p>
             <div className="mt-6 flex flex-wrap gap-3">
-              <button type="button" className="btn-primary">
+              <LoadingLink href="/shop" className="btn-primary">
                 Shop now
-              </button>
-              <button type="button" className="btn-ghost">
+              </LoadingLink>
+              <LoadingLink href="/contact" className="btn-ghost">
                 Custom orders
-              </button>
+              </LoadingLink>
             </div>
           </div>
 
@@ -51,29 +51,16 @@ function PrimaryHero({
 }
 
 export default async function ShopPage() {
-  const brandPanels = await getBrandImagesExcluding([
-    "logo-bg.png",
-    "reference-layout.png",
-    "herosection.png",
-  ]);
-
-  const pipe1 = brandPanels[0];
-  const pipe2 = brandPanels[1];
-  const pipe3 = brandPanels[2];
-
-  const hamp1 = brandPanels[3];
-  const hamp2 = brandPanels[4];
-  const hamp3 = brandPanels[5];
-
-  const heroImage = "/brand/herosection.png";
+  const heroImage = "/brand/logo-bg.png";
+  const productImage = "/brand/logo-bg.png";
 
   const cards = [
-    { title: "Artisan Bouquets", caption: "Handcrafted keepsake gifting.", img: pipe1 },
-    { title: "Whimsical Clips", caption: "Soft-tone charm for playful moments.", img: pipe2 },
-    { title: "Mini Bags", caption: "Statement accessories with a gentle touch.", img: pipe3 },
-    { title: "Birthday Bloom", caption: "A personalized gift basket for celebrations.", img: hamp1 },
-    { title: "Little Wonders", caption: "Occasion favorites, curated with care.", img: hamp2 },
-    { title: "Forever Together", caption: "Elegant pairings for timeless occasions.", img: hamp3 },
+    { title: "Artisan Bouquets", caption: "Handcrafted keepsake gifting.", img: productImage },
+    { title: "Whimsical Clips", caption: "Soft-tone charm for playful moments.", img: productImage },
+    { title: "Mini Bags", caption: "Statement accessories with a gentle touch.", img: productImage },
+    { title: "Birthday Bloom", caption: "A personalized gift basket for celebrations.", img: productImage },
+    { title: "Little Wonders", caption: "Occasion favorites, curated with care.", img: productImage },
+    { title: "Forever Together", caption: "Elegant pairings for timeless occasions.", img: productImage },
   ];
 
   return (
@@ -95,19 +82,15 @@ export default async function ShopPage() {
                 className="soft-panel overflow-hidden reveal"
                 style={{ animationDelay: `${idx * 90}ms` }}
               >
-                {card.img ? (
-                  <div className="relative min-h-[230px]">
-                    <Image
-                      src={card.img}
-                      alt={card.title}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 768px) 100vw, 33vw"
-                    />
-                  </div>
-                ) : (
-                  <div className="photo-panel min-h-[230px] photo-bouquet" />
-                )}
+                <div className="relative min-h-[230px]">
+                  <Image
+                    src={card.img}
+                    alt={card.title}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                  />
+                </div>
                 <div className="p-4">
                   <h3 className="font-display text-[1.65rem] leading-tight text-rose-ink">
                     {card.title}
