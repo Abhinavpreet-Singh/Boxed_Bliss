@@ -30,7 +30,7 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
 }
 
 body {
@@ -42,6 +42,37 @@ body {
     radial-gradient(1000px 530px at 0% 0%, rgba(249, 203, 222, 0.42), transparent 68%),
     radial-gradient(640px 390px at 100% 9%, rgba(222, 238, 232, 0.44), transparent 70%),
     var(--rose-paper);
+  overflow-x: hidden;
+}
+
+/* Sleek themed scrollbar (applies to the page scroll container) */
+html,
+body {
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: #b77693 #f8edf3; /* Firefox */
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+html::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track {
+  background: #f8edf3;
+}
+
+html::-webkit-scrollbar-thumb,
+body::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #d5a0b7, #b77693);
+  border-radius: 9999px;
+  border: 2px solid #f8edf3;
+}
+
+html::-webkit-scrollbar-thumb:hover,
+body::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #c48faa, #a56384);
 }
 
 a {
@@ -58,7 +89,7 @@ a {
 }
 
 .site-shell {
-  width: min(1180px, calc(100% - 2.2rem));
+  width: min(1440px, calc(100% - 1.2rem));
   margin-inline: auto;
 }
 
@@ -142,11 +173,11 @@ a {
 }
 
 .reveal {
-  animation: fade-up 0.82s ease both;
+  animation: none;
 }
 
 .float-slow {
-  animation: float-slow 5s ease-in-out infinite;
+  animation: none;
 }
 
 .art-panel {

@@ -1,8 +1,9 @@
 "use client";
 
 import Image from "next/image";
+import { usePathname } from "next/navigation";
+import { useMemo, useState } from "react";
 import LoadingLink from "@/components/routeLoading/LoadingLink";
-import { useRouteLoading } from "@/components/routeLoading/RouteLoadingProvider";
 
 const links = [
   { label: "Home", href: "/" },
@@ -13,64 +14,139 @@ const links = [
 ];
 
 export default function Navbar() {
-  const { isNavigating } = useRouteLoading();
+  const pathname = usePathname();
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const activeHref = useMemo(() => pathname ?? "/", [pathname]);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-rose-line/80 bg-rose-paper/92 backdrop-blur-xl">
-      <div className="site-shell flex flex-wrap items-center gap-x-6 gap-y-2 py-2">
-        <LoadingLink
-          href="/"
-          className="flex shrink-0 items-center rounded-full border border-rose-line/80 bg-white/70 px-2 py-1"
-          aria-label="The Boxed Bliss home"
-        >
+    <header className="fixed top-0 left-0 right-0 z-50 border-b border-rose-line/80 bg-rose-paper/95 backdrop-blur-xl">
+      <div className="site-shell grid h-16 grid-cols-[auto_1fr_auto] items-center gap-3">
+        <LoadingLink href="/" className="flex items-center gap-2" aria-label="Home">
           <Image
             src="/brand/logo-bg.png"
             alt="The Boxed Bliss logo"
-            width={56}
-            height={56}
-            className="h-12 w-12 rounded-full border-2 border-rose-line object-cover shadow-sm"
+            width={40}
+            height={40}
+            className="h-10 w-10 rounded-full border border-rose-line object-cover shadow-sm"
             priority
           />
+          <span className="font-script text-[1.75rem] leading-none text-rose-ink sm:text-[2rem]">
+            Boxed with Bliss
+          </span>
         </LoadingLink>
 
-        <nav className="order-3 flex w-full items-center gap-5 text-[0.69rem] uppercase tracking-[0.2em] text-rose-muted sm:order-2 sm:w-auto sm:flex-1 sm:justify-center">
-          {links.map((link) => (
-            <LoadingLink
-              key={link.href}
-              href={link.href}
-              className="transition hover:text-rose-ink"
-            >
-              {link.label}
-            </LoadingLink>
-          ))}
+        <nav className="hidden items-center justify-center gap-1 md:flex">
+          {links.map((link) => {
+            const isActive =
+              link.href === "/"
+                ? activeHref === "/"
+                : activeHref === link.href || activeHref.startsWith(`${link.href}/`);
+
+            return (
+              <LoadingLink
+                key={link.href}
+                href={link.href}
+                className={`rounded-full px-3 py-1.5 text-[0.68rem] uppercase tracking-[0.18em] transition ${
+                  isActive
+                    ? "bg-rose-accent/14 text-rose-ink"
+                    : "text-rose-muted hover:bg-white/70 hover:text-rose-ink"
+                }`}
+              >
+                {link.label}
+              </LoadingLink>
+            );
+          })}
         </nav>
 
-        <div className="order-2 ml-auto flex items-center gap-2.5 sm:order-3">
-          {["Search", "Wishlist", "Cart"].map((item) => (
-            <button
-              key={item}
-              type="button"
-              aria-label={item}
-              className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-rose-line/85 bg-white/75 text-rose-muted transition hover:border-rose-accent/50 hover:text-rose-ink"
-            >
-              <span className="text-[0.58rem] uppercase tracking-[0.13em]">{item[0]}</span>
-            </button>
-          ))}
+        <div className="ml-auto flex items-center gap-2">
+          <button
+            type="button"
+            aria-label="Search"
+            className="hidden h-8 w-8 items-center justify-center rounded-full border border-rose-line/85 bg-white/75 text-rose-muted transition hover:border-rose-accent/50 hover:text-rose-ink sm:inline-flex"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true" className="h-4 w-4">
+              <path
+                d="M15.5 15.5L20 20M10.8 17a6.2 6.2 0 1 1 0-12.4 6.2 6.2 0 0 1 0 12.4Z"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.9"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </button>
+          <LoadingLink
+            href="/collections"
+            aria-label="Liked items"
+            className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-rose-line/85 bg-white/75 text-rose-muted transition hover:border-rose-accent/50 hover:text-rose-ink"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true" className="h-4 w-4">
+              <path
+                d="M12 20s-6.8-4.1-8.8-8C1.7 9.4 2.9 6.3 5.8 5.7c2-.4 3.6.4 4.6 1.8 1-1.4 2.6-2.2 4.6-1.8 2.9.6 4.1 3.7 2.6 6.3C18.8 15.9 12 20 12 20Z"
+                fill="currentColor"
+              />
+            </svg>
+          </LoadingLink>
+
+          <LoadingLink
+            href="/shop"
+            aria-label="Cart"
+            className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-rose-line/85 bg-white/75 text-rose-muted transition hover:border-rose-accent/50 hover:text-rose-ink"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true" className="h-4 w-4">
+              <path
+                d="M6 8h12l-1.2 10.2a1.6 1.6 0 0 1-1.6 1.4H8.8a1.6 1.6 0 0 1-1.6-1.4L6 8Zm3-2.2a3 3 0 0 1 6 0V8H9V5.8Z"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </LoadingLink>
+
+          <button
+            type="button"
+            aria-label="Toggle menu"
+            className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-rose-line/85 bg-white/75 text-rose-muted md:hidden"
+            onClick={() => setMenuOpen((v) => !v)}
+          >
+            <span className="text-[0.58rem] uppercase tracking-[0.13em]">M</span>
+          </button>
         </div>
       </div>
 
-      {/* Loading line at bottom of navbar during navigation */}
-      <div
-        aria-hidden="true"
-        className={`pointer-events-none absolute bottom-0 left-0 h-[3px] w-full origin-left transition-transform duration-200 ${
-          isNavigating ? "scale-x-100" : "scale-x-0"
-        }`}
-        style={{
-          background:
-            "linear-gradient(90deg, rgba(183,118,147,1), rgba(249,203,222,1))",
-          transformOrigin: "left center",
-        }}
-      />
+      {menuOpen ? (
+        <div className="md:hidden border-t border-rose-line/70 bg-rose-paper/98">
+          <div className="site-shell py-3">
+            <nav className="grid gap-1">
+              {links.map((link) => {
+                const isActive =
+                  link.href === "/"
+                    ? activeHref === "/"
+                    : activeHref === link.href || activeHref.startsWith(`${link.href}/`);
+
+                return (
+                  <LoadingLink
+                    key={link.href}
+                    href={link.href}
+                    className={`rounded-lg px-3 py-2 text-xs uppercase tracking-[0.17em] ${
+                      isActive
+                        ? "bg-rose-accent/14 text-rose-ink"
+                        : "text-rose-muted hover:bg-white/75 hover:text-rose-ink"
+                    }`}
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    {link.label}
+                  </LoadingLink>
+                );
+              })}
+            </nav>
+          </div>
+        </div>
+      ) : null}
+
     </header>
   );
 }

@@ -111,8 +111,8 @@ export default async function Home() {
     <div className="overflow-x-hidden bg-rose-paper">
       <Navbar />
 
-      <main className="site-shell pb-16 pt-10 sm:pt-10">
-        <section className="grid items-center gap-9 lg:grid-cols-[1fr_0.96fr]">
+      <main className="site-shell min-h-[100svh] w-full pb-16 pt-20 sm:pt-20">
+        <section className="grid min-h-[calc(100svh-6rem)] items-center gap-9 lg:grid-cols-[1fr_0.96fr]">
           <div className="reveal max-w-[560px]">
             <p className="kicker">Handmade with love and detail</p>
             <h1 className="mt-5 max-w-[18ch] font-display text-5xl leading-[0.96] text-rose-ink sm:text-7xl">
