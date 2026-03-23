@@ -2,8 +2,6 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import LoadingLink from "@/components/routeLoading/LoadingLink";
 import Image from "next/image";
-import { readdir } from "node:fs/promises";
-import { join } from "node:path";
 
 const pipeCleanerCards = [
   {
@@ -41,26 +39,6 @@ const hamperCards = [
   },
 ];
 
-const trustItems = [
-  "Handcrafted premium quality",
-  "Delivered all across India",
-  "Designed for gifting moments",
-];
-
-async function getBrandImages() {
-  try {
-    const dirPath = join(process.cwd(), "public", "brand");
-    const files = await readdir(dirPath);
-
-    return files
-      .filter((file) => /\.(png|jpe?g|webp|gif)$/i.test(file))
-      .sort((a, b) => a.localeCompare(b))
-      .map((file) => `/brand/${file}`);
-  } catch {
-    return [] as string[];
-  }
-}
-
 function SectionTitle({
   title,
   subtitle,
@@ -87,25 +65,8 @@ function SectionTitle({
 }
 
 export default async function Home() {
-  const brandImages = await getBrandImages();
   const heroImage = "/brand/herosection.png";
-
-  // Remaining images used for section thumbnails.
-  const panelImages = brandImages.filter((src) => {
-    const name = src.replace("/brand/", "");
-    return !(
-      name === "herosection.png" ||
-      name === "logo-bg.png" ||
-      name === "reference-layout.png"
-    );
-  });
-
-  const pipeImages = panelImages.slice(0, 3);
-  const hamperImages = panelImages.slice(3, 6);
-  const phoneImage = panelImages[6];
-  const floralMainImage = panelImages[7];
-  const floralTopImage = panelImages[8];
-  const floralMiniImage = panelImages[9];
+  const productImage = "/brand/logo-bg.png";
 
   return (
     <div className="overflow-x-hidden bg-rose-paper">
@@ -113,7 +74,7 @@ export default async function Home() {
 
       <main className="site-shell min-h-[100svh] w-full pb-16 pt-20 sm:pt-20">
         <section className="grid min-h-[calc(100svh-6rem)] items-center gap-9 lg:grid-cols-[1fr_0.96fr]">
-          <div className="reveal max-w-[560px]">
+          <div className="max-w-[560px]">
             <p className="kicker">Handmade with love and detail</p>
             <h1 className="mt-5 max-w-[18ch] font-display text-5xl leading-[0.96] text-rose-ink sm:text-7xl">
               Handcrafted Joy,
@@ -129,20 +90,10 @@ export default async function Home() {
               <LoadingLink href="/collections" className="btn-primary">
                 Explore Collections
               </LoadingLink>
-              <LoadingLink href="/contact" className="btn-ghost">
-                Call now for custom orders
-              </LoadingLink>
             </div>
-            <ul className="mt-8 grid gap-2 text-xs uppercase tracking-[0.15em] text-rose-muted sm:grid-cols-3">
-              {trustItems.map((item) => (
-                <li key={item} className="rounded-full border border-rose-line/80 px-3 py-2 text-center">
-                  {item}
-                </li>
-              ))}
-            </ul>
           </div>
 
-          <div className="reveal relative">
+          <div className="relative">
             <article className="soft-panel p-4 sm:p-5">
               <div className="relative overflow-hidden rounded-[1rem] border border-white/70 bg-rose-soft">
                 <div className="relative min-h-[380px] sm:min-h-[520px]">
@@ -156,39 +107,28 @@ export default async function Home() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-b from-rose-paper/10 via-transparent to-rose-paper/14" />
                 </div>
-                <div className="absolute bottom-4 left-4 rounded-full bg-white/88 px-3 py-1 text-[0.58rem] uppercase tracking-[0.2em] text-rose-muted">
-                  Crafted with intention
-                </div>
               </div>
             </article>
-            <div className="soft-panel absolute -bottom-5 right-4 px-4 py-2 text-[0.64rem] uppercase tracking-[0.12em] text-rose-muted">
-              Handcrafted gift and basket styling
-            </div>
           </div>
         </section>
 
         <section className="mt-20">
           <SectionTitle title="Pipe Cleaner Creations" />
           <div className="grid gap-5 md:grid-cols-3">
-            {pipeCleanerCards.map((card, index) => (
+            {pipeCleanerCards.map((card) => (
               <article
                 key={card.title}
-                className="soft-panel reveal overflow-hidden"
-                style={{ animationDelay: `${index * 120}ms` }}
+                className="soft-panel overflow-hidden"
               >
-                {pipeImages[index] ? (
-                  <div className="photo-panel relative min-h-[250px]">
-                    <Image
-                      src={pipeImages[index]}
-                      alt={card.title}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 768px) 100vw, 33vw"
-                    />
-                  </div>
-                ) : (
-                  <div className={`photo-panel ${card.artClass}`} />
-                )}
+                <div className="photo-panel relative min-h-[330px] sm:min-h-[360px]">
+                  <Image
+                    src={productImage}
+                    alt={card.title}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                  />
+                </div>
                 <div className="p-4">
                   <h3 className="font-display text-[1.95rem] leading-tight text-rose-ink">{card.title}</h3>
                   <p className="mt-1 text-sm text-rose-muted">{card.caption}</p>
@@ -204,21 +144,17 @@ export default async function Home() {
             subtitle="From festivities to forever vows, we turn your emotions into elegant hampers."
           />
           <div className="grid gap-5 md:grid-cols-3">
-            {hamperCards.map((card, index) => (
+            {hamperCards.map((card) => (
               <article key={card.title} className="soft-panel overflow-hidden">
-                {hamperImages[index] ? (
-                  <div className="photo-panel relative min-h-[180px]">
-                    <Image
-                      src={hamperImages[index]}
-                      alt={card.title}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 768px) 100vw, 33vw"
-                    />
-                  </div>
-                ) : (
-                  <div className={`photo-panel min-h-[180px] ${card.artClass}`} />
-                )}
+                <div className="photo-panel relative min-h-[220px]">
+                  <Image
+                    src={productImage}
+                    alt={card.title}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                  />
+                </div>
                 <div className="p-4">
                   <h3 className="font-display text-[1.7rem] leading-tight text-rose-ink">{card.title}</h3>
                   <p className="mt-1 text-sm text-rose-muted">{card.caption}</p>
@@ -243,19 +179,15 @@ export default async function Home() {
                 Design yours now
               </button>
             </div>
-            {phoneImage ? (
-              <div className="photo-panel relative min-h-[280px]">
-                <Image
-                  src={phoneImage}
-                  alt="Phone case design"
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 38vw"
-                />
-              </div>
-            ) : (
-              <div className="photo-panel photo-phone min-h-[280px]" />
-            )}
+            <div className="photo-panel relative min-h-[280px]">
+              <Image
+                src={productImage}
+                alt="Phone case design"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 38vw"
+              />
+            </div>
           </div>
         </section>
 
@@ -269,19 +201,15 @@ export default async function Home() {
 
           <div className="grid gap-5 lg:grid-cols-[1.05fr_1fr]">
             <article className="soft-panel overflow-hidden">
-              {floralMainImage ? (
-                <div className="photo-panel relative min-h-[420px]">
-                  <Image
-                    src={floralMainImage}
-                    alt="Everlasting Real Blooms"
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 1024px) 100vw, 52vw"
-                  />
-                </div>
-              ) : (
-                <div className="photo-panel photo-floral-main min-h-[420px]" />
-              )}
+              <div className="photo-panel relative min-h-[420px]">
+                <Image
+                  src={productImage}
+                  alt="Everlasting Real Blooms"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 52vw"
+                />
+              </div>
               <div className="p-5">
                 <h3 className="font-display text-3xl text-white drop-shadow-[0_2px_8px_rgba(45,39,40,0.35)] sm:text-[2.1rem]">
                   Everlasting Real Blooms
@@ -291,34 +219,26 @@ export default async function Home() {
 
             <div className="grid gap-5 sm:grid-cols-2 sm:grid-rows-[1fr_auto] lg:grid-cols-2 lg:grid-rows-[1fr_auto]">
               <article className="soft-panel overflow-hidden sm:col-span-2">
-                {floralTopImage ? (
-                  <div className="photo-panel relative min-h-[230px]">
-                    <Image
-                      src={floralTopImage}
-                      alt="Floral keepsake"
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                    />
-                  </div>
-                ) : (
-                  <div className="photo-panel photo-floral-top min-h-[230px]" />
-                )}
+                <div className="photo-panel relative min-h-[230px]">
+                  <Image
+                    src={productImage}
+                    alt="Floral keepsake"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
+                </div>
               </article>
               <article className="soft-panel overflow-hidden">
-                {floralMiniImage ? (
-                  <div className="photo-panel relative min-h-[180px]">
-                    <Image
-                      src={floralMiniImage}
-                      alt="Preserve memories"
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 768px) 100vw, 36vw"
-                    />
-                  </div>
-                ) : (
-                  <div className="photo-panel photo-floral-mini min-h-[180px]" />
-                )}
+                <div className="photo-panel relative min-h-[180px]">
+                  <Image
+                    src={productImage}
+                    alt="Preserve memories"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 36vw"
+                  />
+                </div>
               </article>
               <article className="soft-panel flex min-h-[180px] items-center p-6">
                 <div>
