@@ -106,8 +106,9 @@ export default async function Home() {
             <h1 className="mt-5 max-w-[18ch] font-display text-5xl leading-[0.96] text-rose-ink sm:text-7xl">
               Handcrafted Joy,
             </h1>
-            <p className="font-script mt-2 text-6xl leading-none text-rose-accent sm:text-7xl">
-              Boxed with Bliss
+            <p className="font-script mt-2 text-7xl leading-none text-rose-accent sm:text-8xl lg:text-[6.7rem]">
+              <span>Boxed with </span>
+              <span className="hero-bliss-word">Bliss</span>
             </p>
             <p className="mt-6 max-w-[49ch] text-[0.95rem] leading-7 text-rose-muted">
               Discover a world of intentional gifting where every detail is crafted to wrap your
